@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Renci.SshNet": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Project"
+    }
+  }
+}

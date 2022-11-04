@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WindowsCommandLineShell": {
+      "commandName": "Project",
+      "commandLineArgs": "centos7"
+    }
+  }
+}
