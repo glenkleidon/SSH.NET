@@ -35,7 +35,6 @@ namespace Renci.SshNet.Tests.Classes
             _heightPixels = (uint) random.Next();
             _terminalModes = new Dictionary<TerminalModes, uint>();
             _bufferSize = random.Next(100, 1000);
-
             _expected = CreateShellStream();
         }
 

@@ -19,11 +19,6 @@ namespace Renci.SshNet.Tests.Classes
             Act();
         }
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-        }
-
         protected override void SetupData()
         {
             _connectionInfo = new ConnectionInfo("host", "user", new NoneAuthenticationMethod("userauth"));
