@@ -18,11 +18,10 @@ namespace Renci.SshNet.Tests.Classes
         private uint _widthPixels;
         private uint _heightPixels;
         private int _bufferSize;
+        private EventHandler<EventArgs> _starting;
+        private EventHandler<EventArgs> _stopping;
         private ShellStream _expected;
         private ShellStream _actual;
-        // we wont try to mock the events as it is easier to actually call them.
-        private int _mockStartingCount;
-        private int _mockStoppingCount;
 
         protected override void SetupData()
         {
@@ -36,8 +35,6 @@ namespace Renci.SshNet.Tests.Classes
             _widthPixels = (uint)random.Next();
             _heightPixels = (uint)random.Next();
             _bufferSize = random.Next(100, 1000);
-            _starting = (s, e) => { _mockStartingCount++; };
-            _stopping = (s, e) => { _mockStoppingCount++; };
 
             _expected = CreateShellStream();
         }
@@ -52,7 +49,6 @@ namespace Renci.SshNet.Tests.Classes
             _serviceFactoryMock.InSequence(sequence)
                                .Setup(p => p.CreateSession(_connectionInfo, _socketFactoryMock.Object))
                                .Returns(_sessionMock.Object);
-
             _sessionMock.InSequence(sequence)
                         .Setup(p => p.Connect());
             _serviceFactoryMock.InSequence(sequence)
@@ -63,7 +59,9 @@ namespace Renci.SshNet.Tests.Classes
                                                                _widthPixels,
                                                                _heightPixels,
                                                                null,
-                                                               _bufferSize
+                                                               _bufferSize,
+                                                               _starting,
+                                                               _stopping
                                                                ))
                                .Returns(_expected);
         }
@@ -87,19 +85,6 @@ namespace Renci.SshNet.Tests.Classes
         }
 
         [TestMethod]
-        public void CreateShellStreamStartingShouldBeInvokedOnce()
-        {
-            Assert.AreEqual(1, _mockStartingCount);
-        }
-
-        [TestMethod]
-        public void CreateShellStreamStartingNoShouldBeInvoked()
-        {
-            Assert.AreEqual(0, _mockStartingCount);
-        }
-
-
-        [TestMethod]
         public void CreateShellStreamOnServiceFactoryShouldBeInvokedOnce()
         {
             _serviceFactoryMock.Verify(p => p.CreateShellStream(_sessionMock.Object,
@@ -109,7 +94,9 @@ namespace Renci.SshNet.Tests.Classes
                                                                 _widthPixels,
                                                                 _heightPixels,
                                                                 null,
-                                                                _bufferSize),
+                                                                _bufferSize,
+                                                                _starting, 
+                                                                _stopping),
                                        Times.Once);
         }
 
@@ -147,9 +134,7 @@ namespace Renci.SshNet.Tests.Classes
                                    _widthPixels,
                                    _heightPixels,
                                    null,
-                                   1,
-                                   _starting,
-                                   _stopping);
+                                   1);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Renci.SshNet.Tests.Classes
         private uint _heightRows;
         private uint _widthPixels;
         private uint _heightPixels;
+        private EventHandler<EventArgs> _starting;
+        private EventHandler<EventArgs> _stopping;
         private Dictionary<TerminalModes, uint> _terminalModes;
         private int _bufferSize;
         private ShellStream _expected;
@@ -58,7 +60,9 @@ namespace Renci.SshNet.Tests.Classes
                                                                _widthPixels,
                                                                _heightPixels,
                                                                _terminalModes,
-                                                               _bufferSize))
+                                                               _bufferSize,
+                                                               _starting, 
+                                                               _stopping))
                                .Returns(_expected);
         }
 
@@ -78,7 +82,9 @@ namespace Renci.SshNet.Tests.Classes
                                                    _widthPixels,
                                                    _heightPixels,
                                                    _bufferSize,
-                                                   _terminalModes);
+                                                   _terminalModes,
+                                                   _starting,
+                                                   _stopping);
         }
 
         [TestMethod]
@@ -91,7 +97,9 @@ namespace Renci.SshNet.Tests.Classes
                                                                 _widthPixels,
                                                                 _heightPixels,
                                                                 _terminalModes,
-                                                                _bufferSize),
+                                                                _bufferSize,
+                                                                _starting,
+                                                                _stopping),
                                        Times.Once);
         }
 
