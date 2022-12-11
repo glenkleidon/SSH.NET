@@ -11,6 +11,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>BetaVersion-Galkam</Title>
     <Description>Local Build</Description>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
   <!--
