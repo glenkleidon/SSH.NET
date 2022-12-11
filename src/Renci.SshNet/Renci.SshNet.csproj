@@ -8,6 +8,9 @@
     <LangVersion>6</LangVersion>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworks>net35;net40;net472;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>BetaVersion-Galkam</Title>
+    <Description>Local Build</Description>
   </PropertyGroup>
 
   <!--
