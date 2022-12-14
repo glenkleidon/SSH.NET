@@ -109,7 +109,7 @@ namespace Renci.SshNet.Tests.Classes
         {
             var shellStream = CreateShellStream();
             _channelSessionMock.Setup(s => s.IsOpen).Returns(false);
-            Assert.IsFalse(shellStream.WindowChangeRequest(80, 25, 0, 0));
+            Assert.IsFalse(shellStream.ChangeWindow(80, 25, 0, 0));
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace Renci.SshNet.Tests.Classes
             _channelSessionMock.Setup(s => s.SendWindowChangeRequest(
                   It.IsAny<uint>(), It.IsAny<uint>(),
                   It.IsAny<uint>(), It.IsAny<uint>())).Returns(false);
-            Assert.IsFalse(shellStream.WindowChangeRequest(80, 25, 0, 0));
+            Assert.IsFalse(shellStream.ChangeWindow(80, 25, 0, 0));
         }
 
         [TestMethod]
@@ -131,7 +131,8 @@ namespace Renci.SshNet.Tests.Classes
             _channelSessionMock.Setup(s => s.SendWindowChangeRequest(
                   It.IsAny<uint>(), It.IsAny<uint>(),
                   It.IsAny<uint>(), It.IsAny<uint>())).Returns(true);
-            Assert.IsTrue(shellStream.WindowChangeRequest(80, 25, 0, 0));
+            Assert.IsTrue(shellStream.ChangeWindow(80, 25, 0, 0));
+            _channelSessionMock.Verify(v => v.SendWindowChangeRequest(80,25,0,0), Times.Once());
         }
 
         private ShellStream CreateShellStream()
